@@ -1,4 +1,4 @@
-|---------------------------------------------------------------------------|
+
 |									                INFO						                    			|	
 |---------------------------------------------------------------------------|
 
@@ -16,7 +16,7 @@ the only "down point" is just the fact that you need to choose a whole folder of
 I don't think that i will change that or "fix it" for my usage it's just fine like this.
 But if you have the will and the time fell free to do that, just give some credit.
 
-|---------------------------------------------------------------------------|
+
 |								                 Changelog			                						|	
 |---------------------------------------------------------------------------|
 
