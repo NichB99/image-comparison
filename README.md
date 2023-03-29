@@ -11,13 +11,19 @@ The app it works just fine and it's the type of app that dosen't occupy any side
 you open and then boom it dissapear until the end where you se a "massage" that tell you it's done and it will close in 5 second (just to tell everything it is done).
 
 The main function of the app it is just to verify that in a "batch" of image (png/jpg/jpeg/etc...) there is no duplicate,
-the only "down point" is just the fact that you need to choose a whole folder of image and it will check them all.
 
-I don't think that i will change that or "fix it" for my usage it's just fine like this.
-But if you have the will and the time fell free to do that, just give some credit.
+Now you can choose the "original" and the "not-original"   EXAMPLE:
 
+Desktop > FolderOriginal1 > image1.png 
+Desktop > FolderNOT-originalOriginal > image1 - copy.png ; image2.png
+
+If you have the will and the time to change or update "at your maximum usage" fell free to do that, just give some credit.
+
+The instruction are simple, first you select the "original" image and then the "not-original", when everything is finished a "results.txt" will appear in the app folder.
 
 |								                 Changelog			                						|	
 |---------------------------------------------------------------------------|
+
+1.1.0 - now you can choose the img ("original" and "not-original) from various folder
 
 1.0.0 - application created

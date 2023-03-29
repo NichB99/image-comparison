@@ -13,12 +13,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-@Deprecated
 
-/*
- * version 1.0.0
- */
-public class CompareAllImg {
+public class CompareSelectedImg {
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -28,40 +24,61 @@ public class CompareAllImg {
         long start = 0;
         boolean controll = false;
 
-        List<String> path = new ArrayList<>();
-        List<String> fileNames = new ArrayList<>();
+        List<String> pathOriginal = new ArrayList<>();
+        List<String> fileNamesOriginal = new ArrayList<>();
+
+        List<String> pathControll = new ArrayList<>();
+        List<String> fileNamesControll = new ArrayList<>();
 
         try (FileWriter writer = new FileWriter("results.txt")) {
 
-            JFrame frame = new JFrame("Choose Multiple Files Example");
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setMultiSelectionEnabled(true);
-            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            int returnValue = fileChooser.showOpenDialog(frame);
             start = System.currentTimeMillis();
-            if (returnValue == JFileChooser.APPROVE_OPTION) {
 
-                File[] files = fileChooser.getSelectedFiles();
+            JFrame frameOriginal = new JFrame("Choose Multiple Files Example");
+            JFileChooser fileChooserOriginal = new JFileChooser("Original");
+            fileChooserOriginal.setMultiSelectionEnabled(true);
+            fileChooserOriginal.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            int returnValueOriginal = fileChooserOriginal.showOpenDialog(frameOriginal);
+
+            if (returnValueOriginal == JFileChooser.APPROVE_OPTION) {
+
+                File[] files = fileChooserOriginal.getSelectedFiles();
                 for (File file : files) {
 
-                    fileNames.add(file.getName());
-                    path.add(file.getPath());
+                    fileNamesOriginal.add(file.getName());
+                    pathOriginal.add(file.getPath());
                 }
             }
 
-            // Loop through each pair of images
-            for (int i = 0; i < fileNames.size() - 1; i++) {
+            JFrame frameControll = new JFrame("Choose Multiple Files Example");
+            JFileChooser fileChooserControll = new JFileChooser();
+            fileChooserControll.setMultiSelectionEnabled(true);
+            fileChooserControll.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            int returnValueControll = fileChooserControll.showOpenDialog(frameControll);
 
-                for (int j = i + 1; j < fileNames.size(); j++) {
+            if (returnValueControll == JFileChooser.APPROVE_OPTION) {
+
+                File[] files = fileChooserControll.getSelectedFiles();
+                for (File file : files) {
+                    fileNamesControll.add(file.getName());
+                    pathControll.add(file.getPath());
+                }
+            }
+
+
+            // Loop through each pair of images
+            for (int i = 0; i < fileNamesControll.size(); i++) {
+
+                for (int j = 0; j < fileNamesOriginal.size(); j++) {
 
                     // Load the images
-                    BufferedImage image1 = ImageIO.read(new File(path.get(i)));
-                    BufferedImage image2 = ImageIO.read(new File(path.get(j)));
+                    BufferedImage image1 = ImageIO.read(new File(pathControll.get(i)));
+                    BufferedImage image2 = ImageIO.read(new File(pathOriginal.get(j)));
 
                     // Compare the size of the images
                     if (image1.getWidth() != image2.getWidth() || image1.getHeight() != image2.getHeight()) {
 
-                        System.out.println("The images  " + fileNames.get(i) + "    and     " + fileNames.get(j) + "     are not of the same size.");
+                        System.out.println("The images  " + fileNamesControll.get(i) + "    and     " + fileNamesOriginal.get(j) + "     are not of the same size.");
                         continue;
                     }
 
@@ -87,7 +104,7 @@ public class CompareAllImg {
                     // Calculate the percentage difference
                     double percentDiff = (double) diffCount / (image1.getWidth() * image1.getHeight()) * 100.0;
                     // Write the results to the output file
-                    String result = fileNames.get(i) + " vs " + fileNames.get(j) + String.format(" - %.2f", percentDiff) + "%\n";
+                    String result = fileNamesControll.get(i) + " vs " + fileNamesOriginal.get(j) + String.format(" - %.2f", percentDiff) + "%\n";
                     writer.write(result);
                 }
             }
